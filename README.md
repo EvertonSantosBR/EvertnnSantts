@@ -1,7 +1,6 @@
 <div align="center">
 
-<a href="https://github.com/EvertonSantosBR"><img src="https://img.shields.io/badge/Português-1f6feb?style=flat-square" alt="Português (atual)"/></a>
-<a href="https://github.com/EvertonSantosBR/EvertonSantosBR/blob/main/README.en.md"><img src="https://img.shields.io/badge/English-161b22?style=flat-square" alt="Read in English"/></a>
+<a href="./README.md"><img src="./assets/lang/pt-on.svg" height="34" alt="Português (atual)"/></a><a href="./README.en.md"><img src="./assets/lang/en-off.svg" height="34" alt="Read in English"/></a>
 
 <img src="./assets/hero.svg" width="100%" alt="Everton Santos — Backend Developer"/>
 
@@ -47,42 +46,7 @@ Sou desenvolvedor **back-end** em Salvador/BA. Comecei em 2021 pelo front-end, p
 
 ## `02` Tech stack
 
-<table>
-  <tr>
-    <td width="170"><b>Linguagens</b></td>
-    <td><img src="https://skillicons.dev/icons?i=js,ts,cs,py,java,solidity&theme=dark" height="40" alt="JavaScript, TypeScript, C#, Python, Java, Solidity"/></td>
-  </tr>
-  <tr>
-    <td><b>Back-end</b></td>
-    <td><img src="https://skillicons.dev/icons?i=nodejs,express,dotnet,sequelize&theme=dark" height="40" alt="Node.js, Express, .NET, Sequelize"/></td>
-  </tr>
-  <tr>
-    <td><b>Front-end</b></td>
-    <td><img src="https://skillicons.dev/icons?i=react,nextjs,tailwind,bootstrap,electron,html,css&theme=dark" height="40" alt="React, Next.js, Tailwind CSS, Bootstrap, Electron, HTML, CSS"/></td>
-  </tr>
-  <tr>
-    <td><b>Banco de dados</b></td>
-    <td>
-      <img src="https://skillicons.dev/icons?i=mysql&theme=dark" height="40" alt="MySQL"/>
-      <img src="https://img.shields.io/badge/SQL_Server-0d1117?style=for-the-badge&logo=microsoftsqlserver&logoColor=CC2927" height="40" alt="SQL Server"/>
-    </td>
-  </tr>
-  <tr>
-    <td><b>IA & visão</b></td>
-    <td><img src="https://skillicons.dev/icons?i=opencv,sklearn&theme=dark" height="40" alt="OpenCV, scikit-learn"/></td>
-  </tr>
-  <tr>
-    <td><b>Ferramentas</b></td>
-    <td><img src="https://skillicons.dev/icons?i=git,github,vscode,vercel&theme=dark" height="40" alt="Git, GitHub, VS Code, Vercel"/></td>
-  </tr>
-  <tr>
-    <td><b>🌱 Estudando</b></td>
-    <td><img src="https://skillicons.dev/icons?i=aws,docker,linux&theme=dark" height="40" alt="AWS, Docker, Linux"/></td>
-  </tr>
-</table>
-
-<sub>Bibliotecas do dia a dia:</sub>
-![JWT](https://img.shields.io/badge/JWT-161b22?style=flat-square&logo=jsonwebtokens&logoColor=58a6ff) ![bcrypt](https://img.shields.io/badge/bcrypt-161b22?style=flat-square&logoColor=58a6ff) ![PDFKit](https://img.shields.io/badge/PDFKit-161b22?style=flat-square&logo=adobeacrobatreader&logoColor=58a6ff) ![EF Core](https://img.shields.io/badge/EF_Core-161b22?style=flat-square&logo=dotnet&logoColor=58a6ff) ![EJS](https://img.shields.io/badge/EJS-161b22?style=flat-square&logo=ejs&logoColor=58a6ff) ![MediaPipe](https://img.shields.io/badge/MediaPipe-161b22?style=flat-square&logo=google&logoColor=58a6ff) ![Hardhat](https://img.shields.io/badge/Hardhat-161b22?style=flat-square&logo=ethereum&logoColor=58a6ff) ![Axios](https://img.shields.io/badge/Axios-161b22?style=flat-square&logo=axios&logoColor=58a6ff)
+<img src="./assets/stack.svg" width="100%" alt="Tech stack: JavaScript, TypeScript, C#, Python, Java, Solidity, Node.js, Express, .NET, Sequelize, React, Next.js, Tailwind, Bootstrap, Electron, MySQL, SQL Server, OpenCV, scikit-learn, Git, GitHub, VS Code, Vercel; estudando AWS, Docker e Linux"/>
 
 <img src="./assets/divider.svg" width="100%" alt=""/>
 
@@ -158,10 +122,7 @@ flowchart LR
   <img src="https://streak-stats.demolab.com/?user=EvertonSantosBR&locale=pt_BR&border_radius=16&background=0D1117&border=30363D&stroke=30363D&ring=58A6FF&fire=58A6FF&currStreakNum=E6EDF3&sideNums=E6EDF3&currStreakLabel=58A6FF&sideLabels=8B949E&dates=6E7681&card_width=1000" width="100%" alt="Sequência de contribuições"/>
 </p>
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/EvertonSantosBR/EvertonSantosBR/output/snake-dark.svg"/>
-  <img src="https://raw.githubusercontent.com/EvertonSantosBR/EvertonSantosBR/output/snake-light.svg" width="100%" alt="Gráfico de contribuições sendo percorrido por uma cobrinha"/>
-</picture>
+<img src="./assets/generated/snake-dark.svg" width="100%" alt="Gráfico de contribuições sendo percorrido por uma cobrinha"/>
 
 <img src="./assets/divider.svg" width="100%" alt=""/>
 

@@ -530,6 +530,105 @@ function contactButton(kind, label, primary = false) {
 </svg>`;
 }
 
+// ─── Painel de tech stack ────────────────────────────────────────────
+const STACK = [
+  { key: "langs", color: C.blue, items: [["js", "JavaScript"], ["ts", "TypeScript"], ["cs", "C#"], ["py", "Python"], ["java", "Java"], ["solidity", "Solidity"]] },
+  { key: "backend", color: C.green, items: [["nodejs", "Node.js"], ["express", "Express"], ["dotnet", ".NET"], ["sequelize", "Sequelize"]] },
+  { key: "frontend", color: C.teal, items: [["react", "React"], ["nextjs", "Next.js"], ["tailwind", "Tailwind"], ["bootstrap", "Bootstrap"], ["electron", "Electron"], ["html", "HTML"], ["css", "CSS"]] },
+  { key: "data", color: C.amber, items: [["mysql", "MySQL"], ["@sqlserver", "SQL Server"]] },
+  { key: "ai", color: C.purple, items: [["opencv", "OpenCV"], ["sklearn", "scikit-learn"]] },
+  { key: "tools", color: C.coral, items: [["git", "Git"], ["github", "GitHub"], ["vscode", "VS Code"], ["vercel", "Vercel"]] },
+];
+const LIBS = ["JWT", "bcrypt", "PDFKit", "EF Core", "EJS", "MediaPipe", "Hardhat", "Ethers.js", "Axios", "node:test"];
+const LEARNING = [["aws", "AWS"], ["docker", "Docker"], ["linux", "Linux"]];
+const STACK_T = {
+  pt: { title: "Tech stack", langs: "linguagens", backend: "back-end", frontend: "front-end", data: "banco de dados", ai: "ia & visão", tools: "ferramentas", libs: "bibliotecas do dia a dia", learning: "estudando agora" },
+  en: { title: "Tech stack", langs: "languages", backend: "back-end", frontend: "front-end", data: "databases", ai: "ai & vision", tools: "tools", libs: "everyday libraries", learning: "learning now" },
+};
+
+// Ícone próprio para o SQL Server (o skillicons não tem)
+const SQLSERVER_ICON = `<rect width="256" height="256" rx="60" fill="#242938"/><path d="M62 78v100c0 15 30 27 66 27s66-12 66-27V78" fill="#CC2927"/><ellipse cx="128" cy="78" rx="66" ry="27" fill="#E8584F"/><path d="M62 128c0 15 30 27 66 27s66-12 66-27" fill="none" stroke="#242938" stroke-width="8"/>`;
+
+async function loadIcons(ids) {
+  const icons = {};
+  for (const id of ids) {
+    if (id.startsWith("@")) continue;
+    const res = await fetch(`https://skillicons.dev/icons?i=${id}&theme=dark`);
+    if (!res.ok) throw new Error(`skillicons ${id}: ${res.status}`);
+    const svg = await res.text();
+    const inner = svg.slice(svg.indexOf(">", svg.indexOf("<svg", svg.indexOf("<g"))) + 1, svg.lastIndexOf("</svg>", svg.lastIndexOf("</svg>") - 1));
+    if (!inner.trim()) throw new Error(`skillicons ${id}: ícone vazio`);
+    // Prefixa ids para não colidirem entre ícones embutidos no mesmo SVG
+    icons[id] = inner.replace(/id="([^"]+)"/g, `id="${id}-$1"`).replace(/url\(#([^)]+)\)/g, `url(#${id}-$1)`).replace(/href="#([^"]+)"/g, `href="#${id}-$1"`);
+  }
+  icons["@sqlserver"] = SQLSERVER_ICON;
+  return icons;
+}
+
+function stackPanel(icons, lang) {
+  const s = STACK_T[lang];
+  const W = 1000, cw = 492, ch = 142, gap = 16, top = 0;
+  const icon = (id, x, y, size = 44) => `<svg x="${x}" y="${y}" width="${size}" height="${size}" viewBox="0 0 256 256">${icons[id]}</svg>`;
+  const cardBg = (x, y, w, h, color, i) => `
+  <g class="in" ${delay(0.1 + i * 0.1)}>
+    <rect x="${x + 0.5}" y="${y + 0.5}" width="${w - 1}" height="${h - 1}" rx="14" fill="url(#cbg)" stroke="${C.border}"/>
+    <rect x="${x + 0.5}" y="${y + 0.5}" width="${w - 1}" height="${h - 1}" rx="14" fill="${color}" fill-opacity=".05"/>
+    <rect x="${x + 24}" y="${y}" width="56" height="2" rx="1" fill="${color}"/>`;
+  const label = (x, y, text, color) => `<circle cx="${x + 4}" cy="${y - 4}" r="4" fill="${color}"/><text x="${x + 16}" y="${y}" class="mono" font-size="12" fill="${color}" letter-spacing="1">${esc(text.toUpperCase())}</text>`;
+
+  let body = "";
+  STACK.forEach((cat, i) => {
+    const x = (i % 2) * (cw + gap), y = top + Math.floor(i / 2) * (ch + gap);
+    body += cardBg(x, y, cw, ch, cat.color, i) + label(x + 24, y + 36, s[cat.key], cat.color);
+    cat.items.forEach(([id, name], j) => {
+      const ix = x + 24 + j * 64;
+      body += icon(id, ix, y + 54) + `<text x="${ix + 22}" y="${y + 120}" text-anchor="middle" class="sans" font-size="11" fill="${C.muted}">${esc(name)}</text>`;
+    });
+    body += `</g>`;
+  });
+
+  // Card largo: bibliotecas + estudando
+  const y = top + 3 * (ch + gap), h = 150, divX = 700;
+  body += cardBg(0, y, W, h, C.blue, 6) + label(24, y + 36, s.libs, C.blue);
+  let cx = 24, cy = y + 56;
+  for (const lib of LIBS) {
+    const w = monoW(lib, 12) + 22;
+    if (cx + w > divX - 24) { cx = 24; cy += 38; }
+    body += chip(cx, cy, lib, C.blue, 12).svg;
+    cx += w + 8;
+  }
+  body += `<line x1="${divX}" y1="${y + 24}" x2="${divX}" y2="${y + h - 24}" stroke="${C.border}" stroke-dasharray="3 5"/>`;
+  body += label(divX + 28, y + 36, s.learning, C.green);
+  LEARNING.forEach(([id, name], j) => {
+    const ix = divX + 28 + j * 80;
+    body += `<g opacity=".92">${icon(id, ix, y + 56, 48)}</g><text x="${ix + 24}" y="${y + 126}" text-anchor="middle" class="sans" font-size="11" fill="${C.muted}">${esc(name)}</text>`;
+  });
+  body += `</g>`;
+
+  const H = y + h + 2;
+  const all = [...STACK.flatMap((c) => c.items.map((it) => it[1])), ...LIBS, ...LEARNING.map((l) => l[1])];
+  return `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(s.title + ": " + all.join(", "))}">
+<defs><linearGradient id="cbg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${C.surface}"/><stop offset="1" stop-color="${C.bg}"/></linearGradient></defs>
+<style>${baseStyle}</style>
+${body}
+</svg>`;
+}
+
+// ─── Seletor de idioma (controle segmentado) ─────────────────────────
+function langButton(code, name, side, active) {
+  const W = 150, H = 40, r = 10;
+  const shape = side === "left"
+    ? `M${r} .5H${W}V${H - 0.5}H${r}A${r - 0.5} ${r - 0.5} 0 0 1 .5 ${H - r}V${r}A${r - 0.5} ${r - 0.5} 0 0 1 ${r} .5Z`
+    : `M0 .5H${W - r}A${r - 0.5} ${r - 0.5} 0 0 1 ${W - 0.5} ${r}V${H - r}A${r - 0.5} ${r - 0.5} 0 0 1 ${W - r} ${H - 0.5}H0Z`;
+  const label = `${code}  ${name}`;
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(name)}">
+<style>${baseStyle}</style>
+<path d="${shape}" fill="${active ? C.blueDeep : C.surface}" stroke="${active ? C.blue : C.border}"/>
+${active ? `<circle cx="22" cy="20" r="4" fill="${C.text}"><animate attributeName="opacity" values="1;.4;1" dur="2s" repeatCount="indefinite"/></circle>` : ""}
+<text x="${active ? 84 : W / 2}" y="25" text-anchor="middle" class="sans" font-size="14" font-weight="${active ? 600 : 500}" fill="${active ? C.text : C.muted}"><tspan class="mono" font-size="12" fill="${active ? "#cae8ff" : C.dim}">${esc(code)}</tspan>  ${esc(name)}</text>
+</svg>`;
+}
+
 // ─── Main ─────────────────────────────────────────────────────────────
 async function out(rel, svg) {
   const file = join(ROOT, "assets", rel);
@@ -539,6 +638,13 @@ async function out(rel, svg) {
 }
 
 await out("divider.svg", divider());
+await out("lang/pt-on.svg", langButton("PT", "Português", "left", true));
+await out("lang/pt-off.svg", langButton("PT", "Português", "left", false));
+await out("lang/en-on.svg", langButton("EN", "English", "right", true));
+await out("lang/en-off.svg", langButton("EN", "English", "right", false));
+
+let icons = null;
+try { icons = await loadIcons([...STACK.flatMap((c) => c.items.map((i) => i[0])), ...LEARNING.map((l) => l[0])]); } catch (e) { console.warn("skillicons indisponível — painel de stack não atualizado:", e.message); }
 
 let data = null;
 try { data = await loadData(); } catch (e) { console.warn("API do GitHub indisponível — cards dinâmicos não atualizados:", e.message); }
@@ -548,6 +654,7 @@ for (const [lang, t] of Object.entries(T)) {
   await out(`${dir}hero.svg`, hero(t));
   await out(`${dir}terminal.svg`, terminal(t));
   await out(`${dir}footer.svg`, footer(t));
+  if (icons) await out(`${dir}stack.svg`, stackPanel(icons, lang));
   for (const kind of ["linkedin", "email", "portfolio", "agenda"])
     await out(`${dir}contact/${kind}.svg`, contactButton(kind, t.contact[kind], kind === "agenda"));
   for (const p of PROJECTS) if (data || !p.repo) await out(`${dir}projects/${p.file}.svg`, projectCard(p, data?.meta[p.repo], t, lang));
