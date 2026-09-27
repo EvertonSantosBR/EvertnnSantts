@@ -9,46 +9,46 @@
 <rect x=".5" y=".5" width="489" height="289" rx="16" fill="#0d1117" stroke="#30363d"/>
 <text x="28" y="44" class="sans" font-size="18" font-weight="600" fill="#58a6ff">Linguagens por projeto</text>
 <clipPath id="bar"><rect x="28" y="64" width="434" height="10" rx="5"/></clipPath>
-<g clip-path="url(#bar)"><rect x="28" y="64" width="434" height="10" fill="#161b22"/><g class="grow"><rect x="28.0" y="64" width="156.1" height="10" fill="#f1e05a"/><rect x="186.1" y="64" width="129.4" height="10" fill="#3572A5"/><rect x="317.5" y="64" width="115.3" height="10" fill="#178600"/><rect x="434.8" y="64" width="20.2" height="10" fill="#e34c26"/><rect x="457.0" y="64" width="2.0" height="10" fill="#663399"/><rect x="461.0" y="64" width="1.0" height="10" fill="#3178c6"/></g></g>
+<g clip-path="url(#bar)"><rect x="28" y="64" width="434" height="10" fill="#161b22"/><g class="grow"><rect x="28.0" y="64" width="195.5" height="10" fill="#f1e05a"/><rect x="225.5" y="64" width="110.6" height="10" fill="#3572A5"/><rect x="338.2" y="64" width="98.6" height="10" fill="#178600"/><rect x="438.7" y="64" width="17.0" height="10" fill="#e34c26"/><rect x="457.7" y="64" width="1.4" height="10" fill="#663399"/><rect x="461.2" y="64" width="1.0" height="10" fill="#3178c6"/></g></g>
 <g class="in" style="animation-delay:0.30s">
   <circle cx="34" cy="113" r="6" fill="#f1e05a"/>
   <text x="48" y="118" class="sans" font-size="15" fill="#e6edf3">JavaScript</text>
-  <text x="228" y="118" text-anchor="end" class="mono" font-size="14" fill="#8b949e">36.4%</text>
+  <text x="228" y="118" text-anchor="end" class="mono" font-size="14" fill="#8b949e">45.5%</text>
   <rect x="28" y="130" width="200" height="4" rx="2" fill="#161b22"/>
-  <rect x="28" y="130" width="72.9" height="4" rx="2" fill="#f1e05a" class="grow" style="animation-delay:0.40s"/>
+  <rect x="28" y="130" width="91.0" height="4" rx="2" fill="#f1e05a" class="grow" style="animation-delay:0.40s"/>
 </g>
 <g class="in" style="animation-delay:0.38s">
   <circle cx="254" cy="113" r="6" fill="#3572A5"/>
   <text x="268" y="118" class="sans" font-size="15" fill="#e6edf3">Python</text>
-  <text x="448" y="118" text-anchor="end" class="mono" font-size="14" fill="#8b949e">30.3%</text>
+  <text x="448" y="118" text-anchor="end" class="mono" font-size="14" fill="#8b949e">26.0%</text>
   <rect x="248" y="130" width="200" height="4" rx="2" fill="#161b22"/>
-  <rect x="248" y="130" width="60.6" height="4" rx="2" fill="#3572A5" class="grow" style="animation-delay:0.48s"/>
+  <rect x="248" y="130" width="51.9" height="4" rx="2" fill="#3572A5" class="grow" style="animation-delay:0.48s"/>
 </g>
 <g class="in" style="animation-delay:0.46s">
   <circle cx="34" cy="167" r="6" fill="#178600"/>
   <text x="48" y="172" class="sans" font-size="15" fill="#e6edf3">C#</text>
-  <text x="228" y="172" text-anchor="end" class="mono" font-size="14" fill="#8b949e">27.0%</text>
+  <text x="228" y="172" text-anchor="end" class="mono" font-size="14" fill="#8b949e">23.2%</text>
   <rect x="28" y="184" width="200" height="4" rx="2" fill="#161b22"/>
-  <rect x="28" y="184" width="54.1" height="4" rx="2" fill="#178600" class="grow" style="animation-delay:0.56s"/>
+  <rect x="28" y="184" width="46.3" height="4" rx="2" fill="#178600" class="grow" style="animation-delay:0.56s"/>
 </g>
 <g class="in" style="animation-delay:0.54s">
   <circle cx="254" cy="167" r="6" fill="#e34c26"/>
   <text x="268" y="172" class="sans" font-size="15" fill="#e6edf3">HTML</text>
-  <text x="448" y="172" text-anchor="end" class="mono" font-size="14" fill="#8b949e">5.1%</text>
+  <text x="448" y="172" text-anchor="end" class="mono" font-size="14" fill="#8b949e">4.4%</text>
   <rect x="248" y="184" width="200" height="4" rx="2" fill="#161b22"/>
-  <rect x="248" y="184" width="10.2" height="4" rx="2" fill="#e34c26" class="grow" style="animation-delay:0.64s"/>
+  <rect x="248" y="184" width="8.8" height="4" rx="2" fill="#e34c26" class="grow" style="animation-delay:0.64s"/>
 </g>
 <g class="in" style="animation-delay:0.62s">
   <circle cx="34" cy="221" r="6" fill="#663399"/>
   <text x="48" y="226" class="sans" font-size="15" fill="#e6edf3">CSS</text>
-  <text x="228" y="226" text-anchor="end" class="mono" font-size="14" fill="#8b949e">0.9%</text>
+  <text x="228" y="226" text-anchor="end" class="mono" font-size="14" fill="#8b949e">0.8%</text>
   <rect x="28" y="238" width="200" height="4" rx="2" fill="#161b22"/>
   <rect x="28" y="238" width="2.0" height="4" rx="2" fill="#663399" class="grow" style="animation-delay:0.72s"/>
 </g>
 <g class="in" style="animation-delay:0.70s">
   <circle cx="254" cy="221" r="6" fill="#3178c6"/>
   <text x="268" y="226" class="sans" font-size="15" fill="#e6edf3">TypeScript</text>
-  <text x="448" y="226" text-anchor="end" class="mono" font-size="14" fill="#8b949e">0.2%</text>
+  <text x="448" y="226" text-anchor="end" class="mono" font-size="14" fill="#8b949e">0.1%</text>
   <rect x="248" y="238" width="200" height="4" rx="2" fill="#161b22"/>
   <rect x="248" y="238" width="2.0" height="4" rx="2" fill="#3178c6" class="grow" style="animation-delay:0.80s"/>
 </g>
