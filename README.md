@@ -82,32 +82,9 @@ Sou desenvolvedor **back-end** em Salvador/BA. Comecei em 2021 pelo front-end, p
 
 ## `04` Como eu construo
 
-| Área | O que já coloquei em prática | Onde |
-| --- | --- | --- |
-| **Arquitetura** | Camadas `routes → middlewares → controllers → services → repositories`; MVC no .NET e no Python | PeopleOS · IEL · LIBRAS Bridge |
-| **Segurança** | JWT, hash de senha com bcrypt, autorização por perfil e por unidade, log de acessos | PeopleOS |
-| **Regras de negócio** | Motor de folha: 13º parcelado, salário proporcional, pensão alimentícia, holerite em PDF | PeopleOS |
-| **Dados** | Modelagem relacional, migrations, transações, EF Core sobre SQL Server | PeopleOS · IEL · BiblioControle |
-| **Testes** | 20+ suítes com `node:test`, incluindo regressão de holerite e cenários de folha | PeopleOS |
-| **Além do back-end** | Visão computacional e ML (MediaPipe, scikit-learn); contratos Solidity e Web3 | LIBRAS Bridge · GreenChain |
+<img src="./assets/skills.svg" width="100%" alt="Competências: arquitetura em camadas, segurança, regras de negócio, dados, testes e além do back-end, com os projetos onde cada uma aparece"/>
 
-<details>
-<summary><b>Ver a arquitetura de uma requisição no PeopleOS</b></summary>
-<br/>
-
-```mermaid
-flowchart LR
-    C([Cliente React]) -->|HTTP + JWT| R[Routes]
-    R --> M{{"Middlewares<br/>auth · role · unitScope · validate"}}
-    M --> CT[Controllers]
-    CT --> S["Services<br/>regras de negócio"]
-    S --> RP[Repositories]
-    RP --> DB[(MySQL)]
-    S -.-> A[["Auditoria e log de acesso"]]
-    S -.-> P[["Holerite em PDF"]]
-```
-
-</details>
+<img src="./assets/flow.svg" width="100%" alt="Fluxo de uma requisição no PeopleOS: Cliente React → Routes → Middlewares → Controllers → Services → Repositories → MySQL, com auditoria e holerite em PDF"/>
 
 <img src="./assets/divider.svg" width="100%" alt=""/>
 

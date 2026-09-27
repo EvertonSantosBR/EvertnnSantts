@@ -82,32 +82,9 @@ I'm a **back-end** developer based in Salvador, Brazil. I started in 2021 with f
 
 ## `04` How I build
 
-| Area | What I've put into practice | Where |
-| --- | --- | --- |
-| **Architecture** | Layers `routes → middlewares → controllers → services → repositories`; MVC in .NET and Python | PeopleOS · IEL · LIBRAS Bridge |
-| **Security** | JWT, bcrypt password hashing, role- and unit-based authorization, access logging | PeopleOS |
-| **Business rules** | Payroll engine: 13th salary in installments, prorated pay, alimony, PDF payslips | PeopleOS |
-| **Data** | Relational modeling, migrations, transactions, EF Core on SQL Server | PeopleOS · IEL · BiblioControle |
-| **Testing** | 20+ suites with `node:test`, including payslip regression and payroll scenarios | PeopleOS |
-| **Beyond back-end** | Computer vision and ML (MediaPipe, scikit-learn); Solidity contracts and Web3 | LIBRAS Bridge · GreenChain |
+<img src="./assets/en/skills.svg" width="100%" alt="Skills: layered architecture, security, business rules, data, testing and beyond back-end, with the projects where each one appears"/>
 
-<details>
-<summary><b>See how a request flows through PeopleOS</b></summary>
-<br/>
-
-```mermaid
-flowchart LR
-    C([React client]) -->|HTTP + JWT| R[Routes]
-    R --> M{{"Middlewares<br/>auth · role · unitScope · validate"}}
-    M --> CT[Controllers]
-    CT --> S["Services<br/>business rules"]
-    S --> RP[Repositories]
-    RP --> DB[(MySQL)]
-    S -.-> A[["Audit and access log"]]
-    S -.-> P[["PDF payslip"]]
-```
-
-</details>
+<img src="./assets/en/flow.svg" width="100%" alt="How a request flows through PeopleOS: React client → Routes → Middlewares → Controllers → Services → Repositories → MySQL, with audit log and PDF payslip"/>
 
 <img src="./assets/divider.svg" width="100%" alt=""/>
 

@@ -110,7 +110,7 @@ function hero(t) {
       <text x="${x + 30}" y="${y + 28}" class="mono" font-size="14" fill="${C.text}">${label}</text>
     </g>`;
   const packet = (path, color, dur, begin) =>
-    `<circle r="4" fill="${color}"><animateMotion path="${path}" dur="${dur}s" begin="${begin}s" repeatCount="indefinite"/></circle>`;
+    `<circle r="4" fill="${color}" opacity="0"><set attributeName="opacity" to="1" begin="${begin}s" fill="freeze"/><animateMotion path="${path}" dur="${dur}s" begin="${begin}s" repeatCount="indefinite"/></circle>`;
 
   // Diagrama: client → api → services → mysql, api → audit
   const p1 = "M822 92 H880", p2 = "M950 115 V190", p3 = "M1012 213 H1060", p4 = "M1012 92 H1060";
@@ -614,6 +614,140 @@ ${body}
 </svg>`;
 }
 
+// ─── "Como eu construo": competências ────────────────────────────────
+const PROJECT_COLORS = { PeopleOS: C.blue, IEL: C.purple, "LIBRAS Bridge": C.teal, BiblioControle: C.amber, GreenChain: C.green };
+
+// Ícones em traço, grade 24×24
+const SKILL_ICONS = {
+  layers: `<path d="M12 3 3 8l9 5 9-5-9-5Z"/><path d="m3 12.5 9 5 9-5"/><path d="m3 17 9 5 9-5"/>`,
+  lock: `<rect x="4.5" y="10.5" width="15" height="10" rx="2.5"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/><circle cx="12" cy="15.5" r="1.3"/>`,
+  calc: `<rect x="5" y="2.5" width="14" height="19" rx="2.5"/><path d="M8.5 7h7"/><path d="M8.5 12h.01M12 12h.01M15.5 12h.01M8.5 15.5h.01M12 15.5h.01M15.5 15.5h.01M8.5 19h.01M12 19h.01M15.5 19h.01" stroke-width="2.4"/>`,
+  db: `<ellipse cx="12" cy="5.5" rx="7.5" ry="3"/><path d="M4.5 5.5v13c0 1.7 3.4 3 7.5 3s7.5-1.3 7.5-3v-13"/><path d="M4.5 12c0 1.7 3.4 3 7.5 3s7.5-1.3 7.5-3"/>`,
+  check: `<circle cx="12" cy="12" r="9"/><path d="m8 12.3 2.7 2.7L16.2 9.5"/>`,
+  spark: `<path d="M12 2.5c.6 4.6 2.9 6.9 7.5 7.5-4.6.6-6.9 2.9-7.5 7.5-.6-4.6-2.9-6.9-7.5-7.5 4.6-.6 6.9-2.9 7.5-7.5Z"/><path d="M19 16.5c.2 1.6 1 2.3 2.5 2.5-1.6.2-2.3 1-2.5 2.5-.2-1.6-1-2.3-2.5-2.5 1.6-.2 2.3-1 2.5-2.5Z"/>`,
+};
+
+const SKILLS = [
+  {
+    icon: "layers", color: C.blue, where: ["PeopleOS", "IEL", "LIBRAS Bridge"],
+    pt: ["Arquitetura em camadas", "Camadas routes → middlewares →", "controllers → services → repositories;", "MVC no .NET e no Python."],
+    en: ["Layered architecture", "Layers routes → middlewares →", "controllers → services → repositories;", "MVC in .NET and Python."],
+  },
+  {
+    icon: "lock", color: C.purple, where: ["PeopleOS"],
+    pt: ["Segurança", "JWT, hash de senha com bcrypt,", "autorização por perfil e por unidade", "e log de acessos."],
+    en: ["Security", "JWT, bcrypt password hashing,", "role- and unit-based authorization", "and access logging."],
+  },
+  {
+    icon: "calc", color: C.green, where: ["PeopleOS"],
+    pt: ["Regras de negócio", "Motor de folha: 13º parcelado, salário", "proporcional, pensão alimentícia e", "holerite em PDF."],
+    en: ["Business rules", "Payroll engine: 13th salary in", "installments, prorated pay, alimony", "and PDF payslips."],
+  },
+  {
+    icon: "db", color: C.amber, where: ["PeopleOS", "IEL", "BiblioControle"],
+    pt: ["Dados", "Modelagem relacional, migrations,", "transações e EF Core sobre", "SQL Server."],
+    en: ["Data", "Relational modeling, migrations,", "transactions and EF Core on", "SQL Server."],
+  },
+  {
+    icon: "check", color: C.coral, where: ["PeopleOS"],
+    pt: ["Testes", "20+ suítes com node:test, incluindo", "regressão de holerite e cenários", "de folha de pagamento."],
+    en: ["Testing", "20+ suites with node:test, including", "payslip regression tests and", "payroll scenarios."],
+  },
+  {
+    icon: "spark", color: C.teal, where: ["LIBRAS Bridge", "GreenChain"],
+    pt: ["Além do back-end", "Visão computacional e ML (MediaPipe,", "scikit-learn), contratos Solidity", "e integração Web3."],
+    en: ["Beyond back-end", "Computer vision and ML (MediaPipe,", "scikit-learn), Solidity contracts", "and Web3 integration."],
+  },
+];
+
+function skillsPanel(lang) {
+  const W = 1000, cw = 322, ch = 200, gap = 17;
+  let body = "";
+  SKILLS.forEach((sk, i) => {
+    const x = (i % 3) * (cw + gap), y = Math.floor(i / 3) * (ch + gap);
+    const [title, ...lines] = sk[lang];
+    let cx = x + 24;
+    const chips = sk.where.map((p) => {
+      const c = chip(cx, y + ch - 44, p, PROJECT_COLORS[p], 11);
+      cx += c.w + 6;
+      return c.svg;
+    }).join("");
+    body += `
+<g class="in" ${delay(0.1 + i * 0.1)}>
+  <rect x="${x + 0.5}" y="${y + 0.5}" width="${cw - 1}" height="${ch - 1}" rx="14" fill="url(#cbg)" stroke="${C.border}"/>
+  <rect x="${x + 0.5}" y="${y + 0.5}" width="${cw - 1}" height="${ch - 1}" rx="14" fill="${sk.color}" fill-opacity=".05"/>
+  <rect x="${x + 24}" y="${y}" width="56" height="2" rx="1" fill="${sk.color}"/>
+  <rect x="${x + 24}" y="${y + 24}" width="38" height="38" rx="10" fill="${sk.color}" fill-opacity=".14" stroke="${sk.color}" stroke-opacity=".4"/>
+  <g transform="translate(${x + 31} ${y + 31})" fill="none" stroke="${sk.color}" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${SKILL_ICONS[sk.icon]}</g>
+  <text x="${x + 76}" y="${y + 49}" class="sans" font-size="17" font-weight="700" fill="${C.text}">${esc(title)}</text>
+  ${lines.map((l, j) => `<text x="${x + 24}" y="${y + 92 + j * 20}" class="sans" font-size="13" fill="${C.muted}">${esc(l)}</text>`).join("")}
+  ${chips}
+</g>`;
+  });
+  const H = 2 * ch + gap + 1;
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(SKILLS.map((s) => `${s[lang][0]}: ${s[lang].slice(1).join(" ")}`).join(" · "))}">
+<defs><linearGradient id="cbg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${C.surface}"/><stop offset="1" stop-color="${C.bg}"/></linearGradient></defs>
+<style>${baseStyle}</style>
+${body}
+</svg>`;
+}
+
+// ─── "Como eu construo": fluxo de uma requisição no PeopleOS ─────────
+const FLOW_T = {
+  pt: { title: "// fluxo de uma requisição no peopleos", client: "Cliente React", audit: "Auditoria + log de acesso", pdf: "Holerite em PDF", req: "requisição", res: "resposta" },
+  en: { title: "// how a request flows through peopleos", client: "React client", audit: "Audit + access log", pdf: "PDF payslip", req: "request", res: "response" },
+};
+
+function flowPanel(lang) {
+  const f = FLOW_T[lang];
+  const W = 1000, H = 270, nw = 118, step = 140, x0 = 21, ny = 84, nh = 46;
+  const nodes = [
+    [f.client, C.teal], ["Routes", C.blue], ["Middlewares", C.purple], ["Controllers", C.blue],
+    ["Services", C.green], ["Repositories", C.amber], ["MySQL", C.amber],
+  ];
+  const cxOf = (i) => x0 + i * step + nw / 2;
+  const node = (x, y, w, label, color, d) => `
+  <g class="in" ${delay(d)}>
+    <rect x="${x}" y="${y}" width="${w}" height="${nh}" rx="10" fill="${C.surface}" stroke="${color}" stroke-opacity=".75"/>
+    <text x="${x + w / 2}" y="${y + 28}" text-anchor="middle" class="mono" font-size="13" fill="${C.text}">${esc(label)}</text>
+  </g>`;
+  const arrows = nodes.slice(1).map((_, i) => {
+    const xa = x0 + i * step + nw + 3, xb = x0 + (i + 1) * step - 5;
+    return `<path d="M${xa} ${ny + nh / 2}H${xb}" stroke="${C.dim}" stroke-width="1.5" marker-end="url(#arrow)"/>`;
+  }).join("");
+  const sv = cxOf(4), audit = [560, 220], pdf = [800, 170], by = 190;
+  const branch = `<g fill="none" stroke="${C.purple}" stroke-opacity=".7" stroke-width="1.5" class="flow">
+    <path d="M${sv} ${ny + nh}V${by - 22}H${audit[0]}V${by}"/><path d="M${sv} ${by - 22}H${pdf[0]}V${by}"/></g>`;
+  const packet = (path, color, dur, begin) =>
+    `<circle r="4.5" fill="${color}" opacity="0"><set attributeName="opacity" to="1" begin="${begin}s" fill="freeze"/><animateMotion path="${path}" dur="${dur}s" begin="${begin}s" repeatCount="indefinite"/></circle>`;
+  const mid = ny + nh / 2;
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(`${f.title}: ${nodes.map((n) => n[0]).join(" → ")}; Services → ${f.audit}, ${f.pdf}`)}">
+<defs>
+  <linearGradient id="cbg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${C.surface}"/><stop offset="1" stop-color="${C.bg}"/></linearGradient>
+  <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 10 5 0 10z" fill="${C.dim}"/></marker>
+</defs>
+<style>${baseStyle}
+  .flow{stroke-dasharray:4 6;animation:dash 1s linear infinite}
+  @keyframes dash{to{stroke-dashoffset:-20}}
+</style>
+<rect x=".5" y=".5" width="${W - 1}" height="${H - 1}" rx="14" fill="url(#cbg)" stroke="${C.border}"/>
+<text x="24" y="40" class="mono" font-size="13" fill="${C.blue}" letter-spacing=".5">${esc(f.title)}</text>
+<g class="in" ${delay(0.2)}>
+  <circle cx="${W - 190}" cy="36" r="4.5" fill="${C.teal}"/><text x="${W - 180}" y="40" class="mono" font-size="11" fill="${C.muted}">${esc(f.req)}</text>
+  <circle cx="${W - 100}" cy="36" r="4.5" fill="${C.green}"/><text x="${W - 90}" y="40" class="mono" font-size="11" fill="${C.muted}">${esc(f.res)}</text>
+</g>
+${arrows}
+${branch}
+${packet(`M${cxOf(0)} ${mid}H${cxOf(6)}`, C.teal, 3.2, 1.2)}
+${packet(`M${cxOf(6)} ${mid}H${cxOf(0)}`, C.green, 3.2, 2.8)}
+${packet(`M${sv} ${ny + nh}V${by - 22}H${audit[0]}V${by}`, C.purple, 1.6, 2.4)}
+${nodes.map(([label, color], i) => node(x0 + i * step, ny, nw, label, color, 0.2 + i * 0.1)).join("")}
+<text x="${cxOf(2)}" y="${ny + nh + 22}" text-anchor="middle" class="mono in" font-size="11" fill="${C.dim}" ${delay(0.6)}>auth · role · scope · validate</text>
+${node(audit[0] - audit[1] / 2, by, audit[1], f.audit, C.purple, 1)}
+${node(pdf[0] - pdf[1] / 2, by, pdf[1], f.pdf, C.purple, 1.1)}
+</svg>`;
+}
+
 // ─── Seletor de idioma (controle segmentado) ─────────────────────────
 function langButton(code, name, side, active) {
   const W = 150, H = 40, r = 10;
@@ -655,6 +789,8 @@ for (const [lang, t] of Object.entries(T)) {
   await out(`${dir}terminal.svg`, terminal(t));
   await out(`${dir}footer.svg`, footer(t));
   if (icons) await out(`${dir}stack.svg`, stackPanel(icons, lang));
+  await out(`${dir}skills.svg`, skillsPanel(lang));
+  await out(`${dir}flow.svg`, flowPanel(lang));
   for (const kind of ["linkedin", "email", "portfolio", "agenda"])
     await out(`${dir}contact/${kind}.svg`, contactButton(kind, t.contact[kind], kind === "agenda"));
   for (const p of PROJECTS) if (data || !p.repo) await out(`${dir}projects/${p.file}.svg`, projectCard(p, data?.meta[p.repo], t, lang));
